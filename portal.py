@@ -15,33 +15,33 @@ st.set_page_config(page_title="Portal de Inteligencia - SIEC", layout="wide")
 
 def verificar_password():
     def password_entered():
-        # Verificamos que la clave exista antes de leerla
         if "password" in st.session_state and st.session_state["password"] == "ClaveInstitucional2026":
             st.session_state["password_correct"] = True
-            st.session_state["password"] = "" # Limpiamos el valor en lugar de borrar la llave con 'del'
+            st.session_state["password"] = ""
         else:
             st.session_state["password_correct"] = False
             st.session_state["password"] = ""
-  if "password_correct" not in st.session_state:
-    st.text_input(
-        "Contraseña de Acceso Restringido:",
-        type="password",
-        on_change=password_entered,
-        key="password",
-    )
-    return False
-  elif not st.session_state["password_correct"]:
-    st.text_input(
-        "Contraseña de Acceso Restringido:",
-        type="password",
-        on_change=password_entered,
-        key="password",
-    )
-    st.error("😕 Contraseña incorrecta")
-    return False
-  else:
-    return True
 
+    # ATENCIÓN AQUÍ: Esta línea debe estar alineada a la misma altura que 'def password_entered()' (4 espacios de sangría)
+    if "password_correct" not in st.session_state:
+        st.text_input(
+            "Contraseña de Acceso Restringido:",
+            type="password",
+            on_change=password_entered,
+            key="password",
+        )
+        return False
+    elif not st.session_state["password_correct"]:
+        st.text_input(
+            "Contraseña de Acceso Restringido:",
+            type="password",
+            on_change=password_entered,
+            key="password",
+        )
+        st.error("Contraseña incorrecta")
+        return False
+    else:
+        return True
 
 # Si no se autentica correctamente, se detiene la ejecución del resto del portal
 if not verificar_password():
