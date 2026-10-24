@@ -14,13 +14,14 @@ st.set_page_config(page_title="Portal de Inteligencia - SIEC", layout="wide")
 
 
 def verificar_password():
-  def password_entered():
-    if st.session_state["password"] == "ClaveInstitucional2026":
-      st.session_state["password_correct"] = True
-      del st.session_state["password"]  # No guardar la contraseña en texto
-    else:
-      st.session_state["password_correct"] = False
-
+    def password_entered():
+        # Verificamos que la clave exista antes de leerla
+        if "password" in st.session_state and st.session_state["password"] == "ClaveInstitucional2026":
+            st.session_state["password_correct"] = True
+            st.session_state["password"] = "" # Limpiamos el valor en lugar de borrar la llave con 'del'
+        else:
+            st.session_state["password_correct"] = False
+            st.session_state["password"] = ""
   if "password_correct" not in st.session_state:
     st.text_input(
         "Contraseña de Acceso Restringido:",
